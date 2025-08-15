@@ -1,0 +1,157 @@
+{
+  "common": {
+    "appName": "Gestor de Frases",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "export": "Exportar",
+    "import": "Importar",
+    "add": "Agregar",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "header": {
+    "title": "Gestor de Frases",
+    "selection": "Selección",
+    "selectedCount": "{{count}} seleccionadas",
+    "deleteSelected": "Eliminar",
+    "lightMode": "Modo claro",
+    "darkMode": "Modo oscuro",
+    "changeLanguage": "Cambiar idioma",
+    "export": "Exportar",
+    "import": "Importar",
+    "viewMode": {
+      "grid": "Vista de cuadrícula",
+      "list": "Vista de lista",
+      "virtual": "Vista virtualizada"
+    }
+  },
+  "stats": {
+    "total": "Total",
+    "filtered": "Filtradas",
+    "selected": "Seleccionadas",
+    "avgLength": "Long. Promedio",
+    "tags": "Etiquetas",
+    "authors": "Autores",
+    "categories": "Categorías"
+  },
+  "form": {
+    "title": "Nueva Frase",
+    "fields": {
+      "text": "Frase",
+      "tags": "Etiquetas",
+      "author": "Autor",
+      "category": "Categoría"
+    },
+    "placeholders": {
+      "text": "Escribe una nueva frase...",
+      "tags": "Separadas por coma",
+      "author": "Opcional",
+      "category": "Seleccionar categoría"
+    },
+    "validation": {
+      "required": "Este campo es requerido",
+      "minLength": "Mínimo {{min}} caracteres",
+      "maxLength": "Máximo {{max}} caracteres",
+      "pattern": "Formato inválido",
+      "textRequired": "La frase es requerida",
+      "textTooShort": "La frase debe tener al menos {{min}} caracteres",
+      "textTooLong": "La frase no puede exceder {{max}} caracteres",
+      "invalidTags": "Solo letras, números y comas",
+      "authorTooShort": "El autor debe tener al menos 2 caracteres",
+      "authorTooLong": "El autor no puede exceder 50 caracteres"
+    },
+    "submit": "Agregar Frase",
+    "submitting": "Agregando...",
+    "characterCount": "{{current}}/{{max}}"
+  },
+  "search": {
+    "placeholder": "Buscar frases, etiquetas, autores o categorías...",
+    "shortcutHint": "(Ctrl+K)",
+    "clear": "Limpiar búsqueda",
+    "noResults": "No se encontraron resultados",
+    "searching": "Buscando..."
+  },
+  "sort": {
+    "label": "Ordenar por",
+    "options": {
+      "date": "Fecha",
+      "text": "Texto",
+      "likes": "Me gusta",
+      "author": "Autor"
+    },
+    "order": {
+      "asc": "Ascendente",
+      "desc": "Descendente"
+    }
+  },
+  "phrases": {
+    "empty": {
+      "title": "No hay frases todavía",
+      "subtitle": "¡Agrega la primera frase para comenzar!",
+      "filtered": "No se encontraron frases con ese criterio"
+    },
+    "card": {
+      "likes": "{{count}} me gusta",
+      "createdAt": "Creado el {{date}}",
+      "by": "por {{author}}",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar esta frase?",
+      "copyToClipboard": "Copiar al portapapeles",
+      "copied": "¡Copiado!"
+    },
+    "categories": {
+      "technology": "Tecnología",
+      "philosophy": "Filosofía",
+      "bestPractices": "Mejores Prácticas",
+      "architecture": "Arquitectura",
+      "testing": "Testing",
+      "design": "Diseño",
+      "methodology": "Metodología"
+    }
+  },
+  "actions": {
+    "import": {
+      "button": "Importar",
+      "success": "{{count}} frases importadas exitosamente",
+      "error": "Error al importar el archivo",
+      "invalidFormat": "Formato de archivo inválido"
+    },
+    "export": {
+      "button": "Exportar",
+      "formats": {
+        "json": "Exportar como JSON",
+        "csv": "Exportar como CSV"
+      },
+      "success": "Archivo exportado exitosamente",
+      "error": "Error al exportar el archivo"
+    },
+    "batchDelete": {
+      "confirm": "¿Eliminar {{count}} frases seleccionadas?",
+      "success": "{{count}} frases eliminadas",
+      "button": "Eliminar seleccionadas"
+    }
+  },
+  "messages": {
+    "phraseAdded": "Frase agregada exitosamente",
+    "phraseDeleted": "Frase eliminada",
+    "phraseUpdated": "Frase actualizada",
+    "phraseCopied": "Frase copiada al portapapeles",
+    "settingsSaved": "Configuración guardada",
+    "errorOccurred": "Ocurrió un error",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar esta frase?"
+  },
+  "notFound": {
+    "title": "Ups! Página no encontrada",
+    "description": "Lo sentimos, no pudimos encontrar la página que estás buscando.",
+    "goHome": "Ir al inicio"
+  }
+}

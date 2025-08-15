@@ -1,0 +1,157 @@
+{
+  "common": {
+    "appName": "Phrase Manager",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "import": "Import",
+    "add": "Add",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "header": {
+    "title": "Phrase Manager",
+    "selection": "Selection",
+    "selectedCount": "{{count}} selected",
+    "deleteSelected": "Delete",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "changeLanguage": "Change language",
+    "export": "Export",
+    "import": "Import",
+    "viewMode": {
+      "grid": "Grid view",
+      "list": "List view",
+      "virtual": "Virtual view"
+    }
+  },
+  "stats": {
+    "total": "Total",
+    "filtered": "Filtered",
+    "selected": "Selected",
+    "avgLength": "Avg. Length",
+    "tags": "Tags",
+    "authors": "Authors",
+    "categories": "Categories"
+  },
+  "form": {
+    "title": "New Phrase",
+    "fields": {
+      "text": "Phrase",
+      "tags": "Tags",
+      "author": "Author",
+      "category": "Category"
+    },
+    "placeholders": {
+      "text": "Write a new phrase...",
+      "tags": "Separated by comma",
+      "author": "Optional",
+      "category": "Select category"
+    },
+    "validation": {
+      "required": "This field is required",
+      "minLength": "Minimum {{min}} characters",
+      "maxLength": "Maximum {{max}} characters",
+      "pattern": "Invalid format",
+      "textRequired": "Phrase is required",
+      "textTooShort": "Phrase must be at least {{min}} characters",
+      "textTooLong": "Phrase cannot exceed {{max}} characters",
+      "invalidTags": "Only letters, numbers and commas",
+      "authorTooShort": "Author must be at least 2 characters",
+      "authorTooLong": "Author cannot exceed 50 characters"
+    },
+    "submit": "Add Phrase",
+    "submitting": "Adding...",
+    "characterCount": "{{current}}/{{max}}"
+  },
+  "search": {
+    "placeholder": "Search phrases, tags, authors or categories...",
+    "shortcutHint": "(Ctrl+K)",
+    "clear": "Clear search",
+    "noResults": "No results found",
+    "searching": "Searching..."
+  },
+  "sort": {
+    "label": "Sort by",
+    "options": {
+      "date": "Date",
+      "text": "Text",
+      "likes": "Likes",
+      "author": "Author"
+    },
+    "order": {
+      "asc": "Ascending",
+      "desc": "Descending"
+    }
+  },
+  "phrases": {
+    "empty": {
+      "title": "No phrases yet",
+      "subtitle": "Add the first phrase to get started!",
+      "filtered": "No phrases found with that criteria"
+    },
+    "card": {
+      "likes": "{{count}} likes",
+      "createdAt": "Created on {{date}}",
+      "by": "by {{author}}",
+      "deleteConfirm": "Are you sure you want to delete this phrase?",
+      "copyToClipboard": "Copy to clipboard",
+      "copied": "Copied!"
+    },
+    "categories": {
+      "technology": "Technology",
+      "philosophy": "Philosophy",
+      "bestPractices": "Best Practices",
+      "architecture": "Architecture",
+      "testing": "Testing",
+      "design": "Design",
+      "methodology": "Methodology"
+    }
+  },
+  "actions": {
+    "import": {
+      "button": "Import",
+      "success": "{{count}} phrases imported successfully",
+      "error": "Error importing file",
+      "invalidFormat": "Invalid file format"
+    },
+    "export": {
+      "button": "Export",
+      "formats": {
+        "json": "Export as JSON",
+        "csv": "Export as CSV"
+      },
+      "success": "File exported successfully",
+      "error": "Error exporting file"
+    },
+    "batchDelete": {
+      "confirm": "Delete {{count}} selected phrases?",
+      "success": "{{count}} phrases deleted",
+      "button": "Delete selected"
+    }
+  },
+  "messages": {
+    "phraseAdded": "Phrase added successfully",
+    "phraseDeleted": "Phrase deleted",
+    "phraseUpdated": "Phrase updated",
+    "phraseCopied": "Phrase copied to clipboard",
+    "settingsSaved": "Settings saved",
+    "errorOccurred": "An error occurred",
+    "confirmDelete": "Are you sure you want to delete this phrase?"
+  },
+  "notFound": {
+    "title": "Ups! Page not found",
+    "description": "Sorry, we couldn't find the page you were looking for.",
+    "goHome": "Go to home"
+  }
+}
