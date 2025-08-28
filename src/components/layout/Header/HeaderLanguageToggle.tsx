@@ -1,5 +1,5 @@
 import { useText } from "@/contexts/TextContext";
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 import { Globe } from "lucide-react";
 
 type Props = {
@@ -12,9 +12,9 @@ export const HeaderLanguageToggle: React.FC<Props> = (props) => {
   return (
     <button
       onClick={handle}
-      className={clsx(
+      className={combineClasses(
         "p-2 rounded-lg transition-colors flex items-center gap-1",
-        "hover:bg-gray-100 dark:hover:bg-gray-800"
+        "hover:bg-gray-100 dark:hover:bg-gray-800",
       )}
       title={t("header.changeLanguage")}
     >

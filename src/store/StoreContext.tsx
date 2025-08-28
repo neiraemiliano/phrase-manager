@@ -15,21 +15,29 @@ const StoreContext = createContext<Store | null>(null);
 
 const loadInitialState = (): AppState => {
   try {
-    const savedPhrases = StorageService.loadPhrases();
+    const phrasesResult = StorageService.loadPhrases();
     const savedTheme = StorageService.loadTheme();
-    const savedPreferences = StorageService.loadPreferences();
+    const preferencesResult = StorageService.loadPreferences();
+
+    if (phrasesResult.error) {
+      console.error("Error loading phrases:", phrasesResult.error);
+    }
+
+    if (preferencesResult.error) {
+      console.error("Error loading preferences:", preferencesResult.error);
+    }
 
     const baseState: AppState = {
-      phrases: savedPhrases || [],
+      phrases: phrasesResult.data || [],
       filter: "",
       selectedPhrases: [],
       selectionMode: false,
-      sortBy: savedPreferences?.sortBy || SORT_OPTIONS.DATE,
-      sortOrder: savedPreferences?.sortOrder || SORT_ORDERS.DESC,
+      sortBy: preferencesResult.data?.sortBy || SORT_OPTIONS.DATE,
+      sortOrder: preferencesResult.data?.sortOrder || SORT_ORDERS.DESC,
       theme: savedTheme,
-      viewMode: savedPreferences?.viewMode || VIEW_MODES.GRID,
+      viewMode: preferencesResult.data?.viewMode || VIEW_MODES.GRID,
       isLoading: false,
-      error: null,
+      error: phrasesResult.error ? phrasesResult.error.message : null,
     };
 
     if (savedTheme === THEME.DARK)
@@ -43,7 +51,7 @@ const loadInitialState = (): AppState => {
   }
 };
 
-const getDefaultState = (): AppState => ({
+export const initialState = (): AppState => ({
   phrases: [],
   filter: "",
   selectedPhrases: [],
@@ -56,11 +64,19 @@ const getDefaultState = (): AppState => ({
   error: null,
 });
 
-export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
+const getDefaultState = (): AppState => initialState();
+
+interface StoreProviderProps {
+  children: React.ReactNode;
+  initialState?: AppState;
+}
+
+export const StoreProvider: React.FC<StoreProviderProps> = ({
   children,
+  initialState: providedInitialState,
 }) => {
   const [store] = React.useState(
-    () => new Store(rootReducer, loadInitialState())
+    () => new Store(rootReducer, providedInitialState || loadInitialState()),
   );
   const saveTimeoutRef = useRef<NodeJS.Timeout>();
 
@@ -73,18 +89,29 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
       saveTimeoutRef.current = setTimeout(() => {
         const state = store.getState();
 
-        StorageService.savePhrases(state.phrases);
+        const saveResult = StorageService.savePhrases(state.phrases);
+        if (saveResult.error) {
+          console.error("Error saving phrases:", saveResult.error);
+        }
+
         StorageService.saveTheme(state.theme);
-        StorageService.savePreferences({
+
+        const prefsResult = StorageService.savePreferences({
           sortBy: state.sortBy,
           sortOrder: state.sortOrder,
           viewMode: state.viewMode,
         });
+        if (prefsResult.error) {
+          console.error("Error saving preferences:", prefsResult.error);
+        }
       }, 1000);
     });
 
     const state = store.getState();
-    StorageService.savePhrases(state.phrases);
+    const initialSaveResult = StorageService.savePhrases(state.phrases);
+    if (initialSaveResult.error) {
+      console.error("Error saving phrases on init:", initialSaveResult.error);
+    }
 
     return () => {
       unsubscribe();

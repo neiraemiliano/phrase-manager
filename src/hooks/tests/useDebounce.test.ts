@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useDebounce } from "../useDebounce";
 
@@ -20,7 +20,7 @@ describe("useDebounce", () => {
   it("should debounce value updates", () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: "initial", delay: 500 } }
+      { initialProps: { value: "initial", delay: 500 } },
     );
 
     expect(result.current).toBe("initial");
@@ -39,7 +39,7 @@ describe("useDebounce", () => {
   it("should cancel previous timeout on rapid updates", () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: "initial", delay: 500 } }
+      { initialProps: { value: "initial", delay: 500 } },
     );
 
     rerender({ value: "update1", delay: 500 });

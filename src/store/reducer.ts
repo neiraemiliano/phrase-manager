@@ -1,5 +1,5 @@
+import { Action, AppState } from "@/types";
 import { LOCAL_STORAGE_KEYS, THEME } from "@/utils";
-import { AppState, Action } from "@types";
 
 export const rootReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -14,7 +14,7 @@ export const rootReducer = (state: AppState, action: Action): AppState => {
         ...state,
         phrases: state.phrases.filter((p) => p.id !== action.payload),
         selectedPhrases: state.selectedPhrases.filter(
-          (id) => id !== action.payload
+          (id) => id !== action.payload,
         ),
       };
 
@@ -30,7 +30,7 @@ export const rootReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         phrases: state.phrases.map((p) =>
-          p.id === action.payload.id ? { ...p, ...action.payload.updates } : p
+          p.id === action.payload.id ? { ...p, ...action.payload.updates } : p,
         ),
       };
 

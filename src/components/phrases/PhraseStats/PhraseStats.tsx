@@ -1,7 +1,7 @@
 import React from "react";
 import { LucideIcon } from "lucide-react";
 import { AnimatedContainer } from "@components/common/AnimatedContainer/AnimatedContainer";
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 
 type StatCardColor = "blue" | "purple" | "green" | "yellow" | "pink" | "indigo";
 
@@ -33,7 +33,9 @@ export const PhraseStats: React.FC<StatCardProps> = ({
     <AnimatedContainer delay={animationDelay}>
       <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover:scale-105">
         <div className="flex items-center justify-between mb-2">
-          <div className={clsx("p-2 rounded-lg", colorClasses[color])}>
+          <div
+            className={combineClasses("p-2 rounded-lg", colorClasses[color])}
+          >
             <Icon className="w-5 h-5" />
           </div>
         </div>

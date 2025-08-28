@@ -77,7 +77,7 @@ export const TextProvider: React.FC<{
 
       return value;
     },
-    [texts]
+    [texts],
   );
 
   if (loading) {

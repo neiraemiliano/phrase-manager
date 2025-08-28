@@ -30,6 +30,17 @@ vi.mock("@/store", () => {
     }),
   };
 });
+
+vi.mock("@/hooks", () => ({
+  useSearch: () => ({
+    searchTerm: "initial search",
+    setSearchTerm: vi.fn(),
+    clearSearch: vi.fn(),
+    isSearching: false,
+    searchSuggestions: [],
+    recentSearches: [],
+  }),
+}));
 describe("SearchBar", () => {
   beforeEach(() => {
     vi.useFakeTimers();

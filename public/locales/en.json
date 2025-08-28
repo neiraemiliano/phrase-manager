@@ -17,7 +17,12 @@
     "add": "Add",
     "close": "Close",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "closeDialog": "Close dialog",
+    "clearSearchFilter": "Clear search filter and show all phrases",
+    "deletePhrase": "Delete phrase"
   },
   "header": {
     "title": "Phrase Manager",
@@ -33,6 +38,26 @@
       "grid": "Grid view",
       "list": "List view",
       "virtual": "Virtual view"
+    }
+  },
+  "menu": {
+    "title": "Menu",
+    "close": "Close menu",
+    "open": "Open menu",
+    "sections": {
+      "theme": "Theme",
+      "language": "Language",
+      "viewMode": "View Mode",
+      "selection": "Selection Mode",
+      "dataManagement": "Data Management",
+      "actions": "Actions"
+    },
+    "batchDelete": {
+      "title": "Delete Selected Phrases",
+      "message": "Are you sure you want to delete {{count}} selected phrases? This action cannot be undone.",
+      "button": "Delete {{count}} Selected",
+      "confirm": "Delete All",
+      "cancel": "Cancel"
     }
   },
   "stats": {
@@ -72,14 +97,19 @@
     },
     "submit": "Add Phrase",
     "submitting": "Adding...",
-    "characterCount": "{{current}}/{{max}}"
+    "characterCount": "{{current}}/{{max}}",
+    "validationErrors": "{{count}} validation error(s) - please fix before submitting",
+    "charactersLabel": "characters",
+    "readyToSubmit": "Ready to submit"
   },
   "search": {
     "placeholder": "Search phrases, tags, authors or categories...",
     "shortcutHint": "(Ctrl+K)",
     "clear": "Clear search",
     "noResults": "No results found",
-    "searching": "Searching..."
+    "searching": "Searching...",
+    "suggestions": "Suggestions",
+    "recent": "Recent searches"
   },
   "sort": {
     "label": "Sort by",
@@ -98,7 +128,8 @@
     "empty": {
       "title": "No phrases yet",
       "subtitle": "Add the first phrase to get started!",
-      "filtered": "No phrases found with that criteria"
+      "filtered": "No phrases found with that criteria",
+      "filteredSubtitle": "Try adjusting your search terms or filters"
     },
     "card": {
       "likes": "{{count}} likes",
@@ -138,6 +169,14 @@
       "confirm": "Delete {{count}} selected phrases?",
       "success": "{{count}} phrases deleted",
       "button": "Delete selected"
+    }
+  },
+  "confirm": {
+    "delete": {
+      "title": "Delete Phrase",
+      "message": "Are you sure you want to delete \"{{text}}\"? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
     }
   },
   "messages": {

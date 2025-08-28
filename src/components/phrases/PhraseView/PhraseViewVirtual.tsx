@@ -16,10 +16,10 @@ export const PhraseViewVirtual: React.FC<Props> = (props) => {
     <div className="animate-fade-in">
       <VirtualList
         items={filteredPhrases}
-        itemHeight={150}
+        itemHeight={200}
         containerHeight={600}
         renderItem={(phrase) => (
-          <div className="px-2">
+          <div className="p-2 h-full">
             <PhraseCard
               phrase={phrase}
               isSelected={state.selectedPhrases.includes(phrase.id)}

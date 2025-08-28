@@ -1,6 +1,6 @@
 import { PhraseForm } from "@/components/phrases/PhraseForm/PhraseForm";
 import { useText } from "@/contexts/TextContext";
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import { useCallback, useState } from "react";
 
@@ -25,7 +25,7 @@ export const FormSection: React.FC = () => {
         <button
           onClick={toggle}
           className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          aria-label={isCollapsed ? "Expand" : "Collapse"}
+          aria-label={isCollapsed ? t("common.expand") : t("common.collapse")}
         >
           {isCollapsed ? (
             <ChevronDown className="w-5 h-5" />
@@ -35,9 +35,9 @@ export const FormSection: React.FC = () => {
         </button>
       </div>
       <div
-        className={clsx(
+        className={combineClasses(
           "transition-all duration-300 overflow-hidden",
-          isCollapsed ? "max-h-0" : "max-h-[500px] mt-6"
+          isCollapsed ? "max-h-0" : "max-h-[500px] mt-6",
         )}
       >
         <PhraseForm />

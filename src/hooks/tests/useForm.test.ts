@@ -33,8 +33,8 @@ describe("useForm", () => {
         { email: "" },
         {
           email: validators.required("Email is required"),
-        }
-      )
+        },
+      ),
     );
 
     act(() => {
@@ -49,7 +49,7 @@ describe("useForm", () => {
     let submittedValues: any = null;
 
     const { result } = renderHook(() =>
-      useForm({ name: "" }, { name: validators.required() })
+      useForm({ name: "" }, { name: validators.required() }),
     );
 
     const onSubmit = (values: any) => {

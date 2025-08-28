@@ -1,7 +1,13 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { PhraseCard } from "../PhraseCard/PhraseCard";
 import { Phrase } from "@/types";
+import {
+  createPhraseId,
+  createNonEmptyString,
+  createISODateString,
+  createPositiveNumber,
+} from "@/types/phrase.types";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { PhraseCard } from "../PhraseCard/PhraseCard";
 
 const dispatchSpy = vi.fn();
 
@@ -47,13 +53,13 @@ vi.mock("@/contexts/TextContext", () => ({
 
 describe("PhraseCard", () => {
   const mockPhrase: Phrase = {
-    id: "1",
-    text: "Test phrase text",
-    createdAt: "2024-01-15T10:00:00Z",
+    id: createPhraseId("1"),
+    text: createNonEmptyString("Test phrase text"),
+    createdAt: createISODateString("2024-01-15T10:00:00Z"),
     tags: ["test", "react"],
-    author: "John Doe",
-    category: "Testing",
-    likes: 5,
+    author: createNonEmptyString("John Doe"),
+    category: createNonEmptyString("Testing"),
+    likes: createPositiveNumber(5),
   };
 
   it("should render phrase text", () => {
@@ -64,8 +70,13 @@ describe("PhraseCard", () => {
   it("should render author and tags", () => {
     render(<PhraseCard phrase={mockPhrase} />);
     expect(screen.getByText("John Doe")).toBeInTheDocument();
-    expect(screen.getByText("test")).toBeInTheDocument();
-    expect(screen.getByText("react")).toBeInTheDocument();
+
+    // Use getAllByText since tags appear in both mobile and desktop views
+    const testTags = screen.getAllByText("test");
+    expect(testTags.length).toBeGreaterThan(0);
+
+    const reactTags = screen.getAllByText("react");
+    expect(reactTags.length).toBeGreaterThan(0);
   });
 
   it("should display likes count", () => {

@@ -15,9 +15,18 @@ export interface UseFormReturn<T extends FormValues> {
   errors: FormErrors;
   touched: FormTouched;
   isSubmitting: boolean;
-  handleChange: (name: keyof T) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  isValid: boolean;
+  handleChange: (
+    name: keyof T,
+  ) => (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   handleBlur: (name: keyof T) => () => void;
-  handleSubmit: (onSubmit: (values: T) => void | Promise<void>) => (e: React.FormEvent) => void;
+  handleSubmit: (
+    onSubmit: (values: T) => void | Promise<void>,
+  ) => (e: React.FormEvent) => void;
   resetForm: () => void;
   setFieldValue: (name: keyof T, value: any) => void;
   setFieldError: (name: keyof T, error: string | null) => void;

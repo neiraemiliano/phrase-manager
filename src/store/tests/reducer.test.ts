@@ -1,6 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { rootReducer } from "../reducer";
-import { AppState } from "@types";
+import {
+  AppState,
+  createPositiveNumber,
+  createPhraseId,
+  createNonEmptyString,
+  createISODateString,
+} from "../../types";
 
 describe("rootReducer", () => {
   const initialState: AppState = {
@@ -19,11 +25,11 @@ describe("rootReducer", () => {
   describe("ADD_PHRASE", () => {
     it("should add a phrase to the beginning of the list", () => {
       const phrase = {
-        id: "1",
-        text: "New phrase",
-        createdAt: new Date().toISOString(),
+        id: createPhraseId("1"),
+        text: createNonEmptyString("New phrase"),
+        createdAt: createISODateString(new Date().toISOString()),
         tags: ["test"],
-        likes: 0,
+        likes: createPositiveNumber(0),
       };
 
       const newState = rootReducer(initialState, {
@@ -41,32 +47,50 @@ describe("rootReducer", () => {
       const stateWithPhrases = {
         ...initialState,
         phrases: [
-          { id: "1", text: "Phrase 1", createdAt: "", tags: [], likes: 0 },
-          { id: "2", text: "Phrase 2", createdAt: "", tags: [], likes: 0 },
+          {
+            id: createPhraseId("1"),
+            text: createNonEmptyString("Phrase 1"),
+            createdAt: createISODateString("2024-01-01T00:00:00Z"),
+            tags: [],
+            likes: createPositiveNumber(0),
+          },
+          {
+            id: createPhraseId("2"),
+            text: createNonEmptyString("Phrase 2"),
+            createdAt: createISODateString("2024-01-01T00:00:00Z"),
+            tags: [],
+            likes: createPositiveNumber(0),
+          },
         ],
       };
 
       const newState = rootReducer(stateWithPhrases, {
         type: "DELETE_PHRASE",
-        payload: "1",
+        payload: createPhraseId("1"),
       });
 
       expect(newState.phrases).toHaveLength(1);
-      expect(newState.phrases[0].id).toBe("2");
+      expect(newState.phrases[0].id).toBe(createPhraseId("2"));
     });
 
     it("should remove phrase from selected list when deleted", () => {
       const stateWithSelection = {
         ...initialState,
         phrases: [
-          { id: "1", text: "Phrase 1", createdAt: "", tags: [], likes: 0 },
+          {
+            id: createPhraseId("1"),
+            text: createNonEmptyString("Phrase 1"),
+            createdAt: createISODateString("2024-01-01T00:00:00Z"),
+            tags: [],
+            likes: createPositiveNumber(0),
+          },
         ],
-        selectedPhrases: ["1"],
+        selectedPhrases: [createPhraseId("1")],
       };
 
       const newState = rootReducer(stateWithSelection, {
         type: "DELETE_PHRASE",
-        payload: "1",
+        payload: createPhraseId("1"),
       });
 
       expect(newState.selectedPhrases).toHaveLength(0);
@@ -103,7 +127,7 @@ describe("rootReducer", () => {
       const stateWithSelection = {
         ...initialState,
         selectionMode: true,
-        selectedPhrases: ["1", "2"],
+        selectedPhrases: [createPhraseId("1"), createPhraseId("2")],
       };
 
       const newState = rootReducer(stateWithSelection, {

@@ -1,7 +1,7 @@
 import { useText } from "@/contexts/TextContext";
 import { actions, useStore } from "@/store";
 import { SORT_OPTIONS, SORT_ORDERS } from "@utils/constants";
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 import { ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import React from "react";
 
@@ -24,8 +24,10 @@ export const PhraseControls: React.FC = () => {
     dispatch(
       actions.setSort(
         state.sortBy,
-        state.sortOrder === SORT_ORDERS.ASC ? SORT_ORDERS.DESC : SORT_ORDERS.ASC
-      )
+        state.sortOrder === SORT_ORDERS.ASC
+          ? SORT_ORDERS.DESC
+          : SORT_ORDERS.ASC,
+      ),
     );
   };
 
@@ -35,12 +37,12 @@ export const PhraseControls: React.FC = () => {
       <select
         value={state.sortBy}
         onChange={handleSortChange}
-        className={clsx(
+        className={combineClasses(
           "px-3 py-2 rounded-lg border transition-colors",
           "bg-white dark:bg-gray-800",
           "text-gray-900 dark:text-gray-100",
           "border-gray-300 dark:border-gray-700",
-          "focus:outline-none focus:ring-2 focus:ring-blue-500"
+          "focus:outline-none focus:ring-2 focus:ring-blue-500",
         )}
       >
         {Object.entries(sortsOptions).map(([value, label]) => (
@@ -52,11 +54,11 @@ export const PhraseControls: React.FC = () => {
 
       <button
         onClick={toggleSortOrder}
-        className={clsx(
+        className={combineClasses(
           "p-2 rounded-lg border transition-colors",
           "bg-white dark:bg-gray-800",
           "border-gray-300 dark:border-gray-700",
-          "hover:bg-gray-50 dark:hover:bg-gray-700"
+          "hover:bg-gray-50 dark:hover:bg-gray-700",
         )}
         title={
           state.sortOrder === SORT_ORDERS.ASC

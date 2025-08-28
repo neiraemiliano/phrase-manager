@@ -6,7 +6,7 @@ import { PhraseViewVirtual } from "@/components/phrases/PhraseView/PhraseViewVir
 import { useStore } from "@/store";
 import { selectFilteredAndSortedPhrases } from "@/store/selectors";
 import { VIEW_MODES } from "@/utils";
-import React, { useMemo } from "react";
+import React, { useMemo, useDeferredValue } from "react";
 
 const VIEW_COMPONENTS = {
   [VIEW_MODES.GRID]: PhraseViewGrid,
@@ -17,10 +17,30 @@ const VIEW_COMPONENTS = {
 export const PhrasesSection: React.FC = () => {
   const { state } = useStore();
 
-  const filteredPhrases = useMemo(
-    () => selectFilteredAndSortedPhrases(state),
-    [state]
+  // Use deferred value for large lists to keep UI responsive
+  const deferredFilter = useDeferredValue(state.filter);
+  const deferredSortBy = useDeferredValue(state.sortBy);
+  const deferredSortOrder = useDeferredValue(state.sortOrder);
+
+  const deferredState = useMemo(
+    () => ({
+      ...state,
+      filter: deferredFilter,
+      sortBy: deferredSortBy,
+      sortOrder: deferredSortOrder,
+    }),
+    [state, deferredFilter, deferredSortBy, deferredSortOrder],
   );
+
+  const filteredPhrases = useMemo(
+    () => selectFilteredAndSortedPhrases(deferredState),
+    [deferredState],
+  );
+
+  const isSearching =
+    state.filter !== deferredFilter ||
+    state.sortBy !== deferredSortBy ||
+    state.sortOrder !== deferredSortOrder;
 
   if (state.isLoading) return <LoadingSpinner />;
 
@@ -34,6 +54,11 @@ export const PhrasesSection: React.FC = () => {
 
   return (
     <div className="relative">
+      {isSearching && (
+        <div className="absolute top-0 right-0 z-10 bg-blue-500 text-white px-2 py-1 rounded-bl-lg text-xs opacity-75">
+          Searching...
+        </div>
+      )}
       <ViewComponent filteredPhrases={filteredPhrases} />
     </div>
   );

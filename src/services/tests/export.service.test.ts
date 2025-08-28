@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { ExportService } from "../export.service";
-import { Phrase } from "@types";
+import { Phrase } from "@/types";
 
 describe("ExportService", () => {
   let createElementSpy: any;
@@ -45,11 +45,11 @@ describe("ExportService", () => {
 
       expect(mockElement.setAttribute).toHaveBeenCalledWith(
         "download",
-        expect.stringContaining("phrases-")
+        expect.stringContaining("phrases-"),
       );
       expect(mockElement.setAttribute).toHaveBeenCalledWith(
         "download",
-        expect.stringContaining(".json")
+        expect.stringContaining(".json"),
       );
     });
   });
@@ -81,7 +81,7 @@ describe("ExportService", () => {
       });
 
       await expect(ExportService.importFromJSON(file)).rejects.toThrow(
-        "Invalid JSON file"
+        "Invalid JSON file",
       );
     });
 
@@ -97,7 +97,7 @@ describe("ExportService", () => {
       } as any;
 
       await expect(ExportService.importFromJSON(file)).rejects.toThrow(
-        "Error reading file"
+        "Error reading file",
       );
 
       global.FileReader = originalFileReader;

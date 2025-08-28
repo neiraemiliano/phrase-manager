@@ -1,6 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { StorageService } from "../storage.service";
-import { Phrase } from "@types";
+import { Phrase } from "@/types";
+import {
+  createPhraseId,
+  createNonEmptyString,
+  createISODateString,
+  createPositiveNumber,
+} from "@/types/phrase.types";
 
 describe("StorageService", () => {
   beforeEach(() => {
@@ -12,11 +18,11 @@ describe("StorageService", () => {
     it("should save phrases to localStorage", () => {
       const phrases: Phrase[] = [
         {
-          id: "1",
-          text: "Test phrase",
-          createdAt: "2024-01-01",
+          id: createPhraseId("1"),
+          text: createNonEmptyString("Test phrase"),
+          createdAt: createISODateString("2024-01-01"),
           tags: ["test"],
-          likes: 0,
+          likes: createPositiveNumber(0),
         },
       ];
 
@@ -24,7 +30,7 @@ describe("StorageService", () => {
 
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "phrase_manager_phrases",
-        JSON.stringify(phrases)
+        JSON.stringify(phrases),
       );
     });
 
@@ -40,8 +46,8 @@ describe("StorageService", () => {
       StorageService.savePhrases(phrases);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Error saving phrases:",
-        expect.any(Error)
+        "STORAGE_ERROR:",
+        expect.any(Error),
       );
     });
   });
@@ -50,11 +56,11 @@ describe("StorageService", () => {
     it("should load phrases from localStorage", () => {
       const phrases: Phrase[] = [
         {
-          id: "1",
-          text: "Test phrase",
-          createdAt: "2024-01-01",
+          id: createPhraseId("1"),
+          text: createNonEmptyString("Test phrase"),
+          createdAt: createISODateString("2024-01-01"),
           tags: ["test"],
-          likes: 0,
+          likes: createPositiveNumber(0),
         },
       ];
 
@@ -62,9 +68,9 @@ describe("StorageService", () => {
 
       const result = StorageService.loadPhrases();
 
-      expect(result).toEqual(phrases);
+      expect(result).toEqual({ data: phrases });
       expect(localStorage.getItem).toHaveBeenCalledWith(
-        "phrase_manager_phrases"
+        "phrase_manager_phrases",
       );
     });
 
@@ -73,7 +79,7 @@ describe("StorageService", () => {
 
       const result = StorageService.loadPhrases();
 
-      expect(result).toBeNull();
+      expect(result).toEqual({ data: [] });
     });
 
     it("should handle parse errors", () => {
@@ -84,7 +90,7 @@ describe("StorageService", () => {
 
       const result = StorageService.loadPhrases();
 
-      expect(result).toBeNull();
+      expect(result.error).toBeDefined();
       expect(consoleSpy).toHaveBeenCalled();
     });
   });
@@ -112,13 +118,13 @@ describe("StorageService", () => {
       StorageService.clearAll();
 
       expect(localStorage.removeItem).toHaveBeenCalledWith(
-        "phrase_manager_theme"
+        "phrase_manager_theme",
       );
       expect(localStorage.removeItem).toHaveBeenCalledWith(
-        "phrase_manager_phrases"
+        "phrase_manager_phrases",
       );
       expect(localStorage.removeItem).toHaveBeenCalledWith(
-        "phrase_manager_preferences"
+        "phrase_manager_preferences",
       );
     });
   });

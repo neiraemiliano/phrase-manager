@@ -1,5 +1,5 @@
-import React from 'react';
-import { useVirtualization } from '@hooks/useVirtualization';
+import React from "react";
+import { useVirtualization } from "@hooks/useVirtualization";
 
 interface VirtualListProps<T extends { id: string }> {
   items: T[];
@@ -14,7 +14,7 @@ export function VirtualList<T extends { id: string }>({
   itemHeight,
   containerHeight,
   renderItem,
-  className = ''
+  className = "",
 }: VirtualListProps<T>) {
   const {
     scrollElementRef,
@@ -22,9 +22,9 @@ export function VirtualList<T extends { id: string }>({
     totalHeight,
     offsetY,
     handleScroll,
-    startIndex
+    startIndex,
   } = useVirtualization(items, { itemHeight, containerHeight });
-  
+
   return (
     <div
       ref={scrollElementRef}
@@ -32,7 +32,7 @@ export function VirtualList<T extends { id: string }>({
       style={{ height: containerHeight }}
       className={`overflow-auto relative ${className}`}
     >
-      <div style={{ height: totalHeight, position: 'relative' }}>
+      <div style={{ height: totalHeight, position: "relative" }}>
         <div style={{ transform: `translateY(${offsetY}px)` }}>
           {visibleItems.map((item, index) => (
             <div key={item.id} style={{ height: itemHeight }}>

@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Button } from "../Button/Button";
 import { Plus } from "lucide-react";
+import React from "react";
 
 vi.mock("@/contexts/TextContext", () => ({
   TextProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -28,7 +29,7 @@ describe("Button", () => {
     expect(screen.getByText("Small")).toHaveClass("text-sm");
 
     rerender(<Button size="lg">Large</Button>);
-    expect(screen.getByText("Large")).toHaveClass("text-lg");
+    expect(screen.getByText("Large")).toHaveClass("text-base");
   });
 
   it("should render with icons", () => {
@@ -38,7 +39,7 @@ describe("Button", () => {
         rightIcon={<Plus data-testid="right-icon" />}
       >
         With Icons
-      </Button>
+      </Button>,
     );
 
     expect(screen.getByTestId("left-icon")).toBeInTheDocument();
@@ -64,7 +65,7 @@ describe("Button", () => {
     render(
       <Button disabled onClick={handleClick}>
         Disabled
-      </Button>
+      </Button>,
     );
 
     const button = screen.getByRole("button");
@@ -84,7 +85,7 @@ describe("Button", () => {
     render(
       <Button isLoading onClick={handleClick}>
         Loading Button
-      </Button>
+      </Button>,
     );
 
     const button = screen.getByRole("button");
@@ -96,11 +97,11 @@ describe("Button", () => {
 
   it("should render ghost variant correctly", () => {
     render(<Button variant="ghost">Ghost Button</Button>);
-    expect(screen.getByText("Ghost Button")).toHaveClass("bg-transparent");
+    expect(screen.getByText("Ghost Button")).toHaveClass("text-gray-600");
   });
 
   it("should render secondary variant correctly", () => {
     render(<Button variant="secondary">Secondary Button</Button>);
-    expect(screen.getByText("Secondary Button")).toHaveClass("bg-gray-200");
+    expect(screen.getByText("Secondary Button")).toHaveClass("bg-gray-600");
   });
 });

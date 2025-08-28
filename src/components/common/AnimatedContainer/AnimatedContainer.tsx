@@ -1,5 +1,5 @@
 import { Animation } from "@/types";
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 import React, { useEffect, useState } from "react";
 
 interface AnimatedContainerProps {
@@ -40,10 +40,10 @@ export const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={combineClasses(
         "transition-all duration-300",
         animationClasses[animation],
-        className
+        className,
       )}
     >
       {children}

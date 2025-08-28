@@ -17,7 +17,12 @@
     "add": "Agregar",
     "close": "Cerrar",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "closeDialog": "Cerrar diálogo",
+    "clearSearchFilter": "Limpiar filtro de búsqueda y mostrar todas las frases",
+    "deletePhrase": "Eliminar frase"
   },
   "header": {
     "title": "Gestor de Frases",
@@ -33,6 +38,26 @@
       "grid": "Vista de cuadrícula",
       "list": "Vista de lista",
       "virtual": "Vista virtualizada"
+    }
+  },
+  "menu": {
+    "title": "Menú",
+    "close": "Cerrar menú",
+    "open": "Abrir menú",
+    "sections": {
+      "theme": "Tema",
+      "language": "Idioma",
+      "viewMode": "Modo de Vista",
+      "selection": "Modo de Selección",
+      "dataManagement": "Gestión de Datos",
+      "actions": "Acciones"
+    },
+    "batchDelete": {
+      "title": "Eliminar Frases Seleccionadas",
+      "message": "¿Estás seguro de que quieres eliminar {{count}} frases seleccionadas? Esta acción no se puede deshacer.",
+      "button": "Eliminar {{count}} Seleccionadas",
+      "confirm": "Eliminar Todas",
+      "cancel": "Cancelar"
     }
   },
   "stats": {
@@ -72,14 +97,19 @@
     },
     "submit": "Agregar Frase",
     "submitting": "Agregando...",
-    "characterCount": "{{current}}/{{max}}"
+    "characterCount": "{{current}}/{{max}}",
+    "validationErrors": "{{count}} error(es) de validación - por favor corrígelos antes de enviar",
+    "charactersLabel": "caracteres",
+    "readyToSubmit": "Listo para enviar"
   },
   "search": {
     "placeholder": "Buscar frases, etiquetas, autores o categorías...",
     "shortcutHint": "(Ctrl+K)",
     "clear": "Limpiar búsqueda",
     "noResults": "No se encontraron resultados",
-    "searching": "Buscando..."
+    "searching": "Buscando...",
+    "suggestions": "Sugerencias",
+    "recent": "Búsquedas recientes"
   },
   "sort": {
     "label": "Ordenar por",
@@ -98,7 +128,8 @@
     "empty": {
       "title": "No hay frases todavía",
       "subtitle": "¡Agrega la primera frase para comenzar!",
-      "filtered": "No se encontraron frases con ese criterio"
+      "filtered": "No se encontraron frases con ese criterio",
+      "filteredSubtitle": "Intenta ajustar tus términos de búsqueda o filtros"
     },
     "card": {
       "likes": "{{count}} me gusta",
@@ -138,6 +169,14 @@
       "confirm": "¿Eliminar {{count}} frases seleccionadas?",
       "success": "{{count}} frases eliminadas",
       "button": "Eliminar seleccionadas"
+    }
+  },
+  "confirm": {
+    "delete": {
+      "title": "Eliminar Frase",
+      "message": "¿Estás seguro de que quieres eliminar \"{{text}}\"? Esta acción no se puede deshacer.",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
     }
   },
   "messages": {

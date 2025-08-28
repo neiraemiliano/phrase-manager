@@ -1,14 +1,20 @@
 import { describe, it, expect } from "vitest";
 import { selectFilteredAndSortedPhrases, selectStats } from "../selectors";
-import { AppState, Phrase } from "@types";
+import { AppState, Phrase } from "@/types";
+import {
+  createPhraseId,
+  createNonEmptyString,
+  createISODateString,
+  createPositiveNumber,
+} from "@/types/phrase.types";
 
 describe("Selectors", () => {
   const createPhrase = (id: string, text: string, date: string): Phrase => ({
-    id,
-    text,
-    createdAt: date,
+    id: createPhraseId(id),
+    text: createNonEmptyString(text),
+    createdAt: createISODateString(date),
     tags: [],
-    likes: 0,
+    likes: createPositiveNumber(0),
   });
 
   describe("selectFilteredAndSortedPhrases", () => {
@@ -101,7 +107,7 @@ describe("Selectors", () => {
           { ...createPhrase("3", "Testing", "2024-01-03"), tags: [] },
         ],
         filter: "",
-        selectedPhrases: ["1", "3"],
+        selectedPhrases: [createPhraseId("1"), createPhraseId("3")],
         selectionMode: true,
         sortBy: "date",
         sortOrder: "asc",

@@ -1,12 +1,26 @@
-import { Phrase } from "@/types";
-import clsx from "clsx";
-import React, { memo, useCallback, useState, useTransition } from "react";
-import { PhraseCardFooter } from "./PhraseCardFooter";
-import { PhraseCardSelection } from "./PhraseCardSelection";
-import { actions, useStore } from "@/store";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog/ConfirmDialog";
+import { LoadingSpinner } from "@/components/common/LoadingSpinner/LoadingSpinner";
 import { toast } from "@/components/common/Toast/Toast";
 import { useText } from "@/contexts/TextContext";
-import { LoadingSpinner } from "@/components/common/LoadingSpinner/LoadingSpinner";
+import { actions, useStore } from "@/store";
+import {
+  animations,
+  cards,
+  colors,
+  combineClasses,
+  utils,
+} from "@/styles/design-system";
+import { Phrase } from "@/types";
+import { createPositiveNumber } from "@/types/phrase.types";
+import React, {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
+import { PhraseCardFooter } from "./PhraseCardFooter";
+import { PhraseCardSelection } from "./PhraseCardSelection";
 
 interface PhraseCardProps {
   phrase: Phrase;
@@ -20,20 +34,33 @@ export const PhraseCard = memo<PhraseCardProps>(
     const [isPending, startTransition] = useTransition();
 
     const [isDeleting, setIsDeleting] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const deleteButtonRef = useRef<HTMLButtonElement>(null);
 
-    const handleDelete = useCallback(
-      (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setIsDeleting(true);
-        setTimeout(() => {
-          startTransition(() => {
-            dispatch(actions.deletePhrase(phrase.id));
-          });
-          toast.info(t("messages.phraseDeleted"));
-        }, 300);
-      },
-      [phrase.id, dispatch, t]
-    );
+    const handleDeleteClick = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
+      setShowDeleteConfirm(true);
+    }, []);
+
+    const handleConfirmDelete = useCallback(() => {
+      setIsDeleting(true);
+      setShowDeleteConfirm(false);
+
+      setTimeout(() => {
+        startTransition(() => {
+          dispatch(actions.deletePhrase(phrase.id));
+        });
+        toast.info(t("messages.phraseDeleted"));
+      }, 300);
+    }, [phrase.id, dispatch, t]);
+
+    const handleCancelDelete = useCallback(() => {
+      setShowDeleteConfirm(false);
+      // Return focus to the delete button
+      setTimeout(() => {
+        deleteButtonRef.current?.focus();
+      }, 100);
+    }, []);
 
     const handleSelect = useCallback(() => {
       if (state.selectionMode)
@@ -49,12 +76,12 @@ export const PhraseCard = memo<PhraseCardProps>(
         if (phrase2) {
           dispatch(
             actions.updatePhrase(phrase2.id, {
-              likes: (phrase2.likes || 0) + 1,
-            })
+              likes: createPositiveNumber((phrase2.likes || 0) + 1),
+            }),
           );
         }
       },
-      [phrase.id, dispatch, t]
+      [phrase.id, dispatch, t],
     );
 
     const highlightText = (text: string, term?: string) => {
@@ -63,12 +90,15 @@ export const PhraseCard = memo<PhraseCardProps>(
       const rx = new RegExp(`(${safe})`, "ig");
       return text.split(rx).map((part, i) =>
         i % 2 === 1 ? (
-          <mark key={i} className="bg-yellow-400 text-gray-900 px-1 rounded">
+          <mark
+            key={i}
+            className="bg-yellow-200 dark:bg-yellow-600 text-gray-900 dark:text-gray-100 px-1 rounded"
+          >
             {part}
           </mark>
         ) : (
           <span key={i}>{part}</span>
-        )
+        ),
       );
     };
 
@@ -78,39 +108,60 @@ export const PhraseCard = memo<PhraseCardProps>(
       <div
         onClick={handleSelect}
         role={state.selectionMode ? "button" : undefined}
-        className={clsx(
-          "relative group p-6 rounded-xl border-2 transition-[box-shadow,transform] duration-200",
-          "bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 justify-between",
-          "border-gray-200 dark:border-gray-700",
-          "hover:shadow-xl focus-within:shadow-xl hover:ring-1 hover:ring-blue-500/30",
-          "h-full flex flex-col overflow-hidden",
-
-          {
-            "ring-2 ring-blue-500": isSelected,
-            "cursor-pointer": state.selectionMode,
-            "opacity-50 scale-95": isDeleting,
-          }
+        className={combineClasses(
+          cards.base,
+          "p-3 sm:p-4 md:p-6",
+          cards.shadows.md,
+          "relative group h-full flex flex-col",
+          "min-h-[160px] sm:min-h-[180px]",
+          "max-h-[240px] sm:max-h-[280px]",
+          cards.interactive,
+          animations.transition.normal,
+          "hover:ring-1 hover:ring-purple-500/30",
+          utils.responsive.touchTarget,
+          isSelected && cards.selected,
+          state.selectionMode && "cursor-pointer",
+          isDeleting && "opacity-50 scale-95",
         )}
       >
         <PhraseCardSelection
           selectionMode={state.selectionMode}
           isSelected={isSelected}
-          handleDelete={handleDelete}
+          handleDelete={handleDeleteClick}
+          ref={deleteButtonRef}
         />
 
         <p
-          className={clsx(
-            "text-lg text-gray-800 dark:text-gray-100 leading-relaxed",
-            "line-clamp-4"
+          className={combineClasses(
+            "text-sm sm:text-base",
+            "leading-relaxed",
+            colors.text.primary,
+            "mb-3 sm:mb-4 flex-1 overflow-hidden",
+            "line-clamp-2 sm:line-clamp-3",
+            utils.text.wrap,
           )}
         >
           {highlightText(phrase.text, state.filter)}
         </p>
 
         <PhraseCardFooter phrase={phrase} handleLike={handleLike} />
+
+        <ConfirmDialog
+          isOpen={showDeleteConfirm}
+          onClose={handleCancelDelete}
+          onConfirm={handleConfirmDelete}
+          title={t("confirm.delete.title")}
+          message={t("confirm.delete.message", {
+            text:
+              phrase.text.slice(0, 50) + (phrase.text.length > 50 ? "..." : ""),
+          })}
+          confirmText={t("confirm.delete.confirm")}
+          cancelText={t("confirm.delete.cancel")}
+          variant="danger"
+        />
       </div>
     );
-  }
+  },
 );
 
 PhraseCard.displayName = "PhraseCard";

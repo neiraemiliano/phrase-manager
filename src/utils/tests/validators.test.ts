@@ -55,7 +55,7 @@ describe("validators", () => {
     it("should validate against regex pattern", () => {
       const validator = validators.pattern(
         /^[a-z]+$/,
-        "Only lowercase letters"
+        "Only lowercase letters",
       );
 
       expect(validator("abc")).toBeNull();
@@ -69,7 +69,7 @@ describe("validators", () => {
       const validator = validators.compose(
         validators.required("Required"),
         validators.minLength(3, "Min 3"),
-        validators.maxLength(10, "Max 10")
+        validators.maxLength(10, "Max 10"),
       );
 
       expect(validator("")).toBe("Required");
@@ -81,7 +81,7 @@ describe("validators", () => {
     it("should stop at first error", () => {
       const validator = validators.compose(
         validators.required("Required"),
-        validators.minLength(100, "This should not appear")
+        validators.minLength(100, "This should not appear"),
       );
 
       expect(validator("")).toBe("Required");

@@ -3,6 +3,12 @@ import { Store } from "../store";
 import { rootReducer } from "../reducer";
 import { actions } from "../actions";
 import { AppState } from "@/types";
+import {
+  createPhraseId,
+  createNonEmptyString,
+  createISODateString,
+  createPositiveNumber,
+} from "@/types/phrase.types";
 
 describe("Store", () => {
   let store: Store;
@@ -33,11 +39,11 @@ describe("Store", () => {
   describe("dispatch", () => {
     it("should update state when dispatching ADD_PHRASE action", () => {
       const phrase = {
-        id: "1",
-        text: "Test phrase",
-        createdAt: new Date().toISOString(),
+        id: createPhraseId("1"),
+        text: createNonEmptyString("Test phrase"),
+        createdAt: createISODateString(new Date().toISOString()),
         tags: ["test"],
-        likes: 0,
+        likes: createPositiveNumber(0),
       };
 
       store.dispatch(actions.addPhrase(phrase));
@@ -49,15 +55,15 @@ describe("Store", () => {
 
     it("should update state when dispatching DELETE_PHRASE action", () => {
       const phrase = {
-        id: "1",
-        text: "Test phrase",
-        createdAt: new Date().toISOString(),
+        id: createPhraseId("1"),
+        text: createNonEmptyString("Test phrase"),
+        createdAt: createISODateString(new Date().toISOString()),
         tags: ["test"],
-        likes: 0,
+        likes: createPositiveNumber(0),
       };
 
       store.dispatch(actions.addPhrase(phrase));
-      store.dispatch(actions.deletePhrase("1"));
+      store.dispatch(actions.deletePhrase(createPhraseId("1")));
 
       const state = store.getState();
       expect(state.phrases).toHaveLength(0);

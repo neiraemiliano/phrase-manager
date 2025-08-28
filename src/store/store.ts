@@ -1,4 +1,4 @@
-import { AppState, Action } from "@types";
+import { Action, AppState } from "@/types";
 
 const devtools = (globalThis as any).__REDUX_DEVTOOLS_EXTENSION__?.connect({
   name: "PhraseManager",
@@ -11,7 +11,7 @@ export class Store {
 
   constructor(
     reducer: (state: AppState, action: Action) => AppState,
-    initialState: AppState
+    initialState: AppState,
   ) {
     this.reducer = reducer;
     this.state = initialState;

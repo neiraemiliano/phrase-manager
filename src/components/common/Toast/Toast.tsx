@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { combineClasses } from "@/styles/design-system";
 import { AlertTriangle, CheckCircle, Info, X, XCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -98,10 +98,10 @@ export const ToastContainer: React.FC = () => {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={clsx(
+          className={combineClasses(
             "flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg",
             "animate-slide-up min-w-[300px] max-w-[500px]",
-            colors[toast.type]
+            colors[toast.type],
           )}
         >
           {icons[toast.type]}
